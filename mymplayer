@@ -1,0 +1,37 @@
+#!/bin/bash
+#My Mplayer written by alireza.amirsamimi@gmail.com
+file_name="$@"
+if [ ! -f "$file_name" ];then
+	file_name=`zenity --file-selection --title="My Mplayer" `
+        if [ $? -eq 1 ]
+           then
+           	notify-send "exit"
+        fi
+fi
+file_name_extension="${file_name##*/}"
+extension="${file_name_extension##*.}"
+file_name_with_out_extension=${file_name_extension%$extension}
+file_name_path="${file_name%$file_name_extension}"
+ls "$file_name_path" | grep "$file_name_with_out_extension" > /tmp/m_player_script_temp.txt
+while read -r line;do
+	if [ "$line" != "$file_name_extension" ];then
+		subtitle_extension="${line##*.}"
+		for i in srt sub gsub aqt jss pjs psb rt smi stl ssf ssa ass usf ; do
+			if [ "$subtitle_extension" == "$i" ];then
+				subtitle_file_name="$line"
+				flag="1"
+				break
+			fi
+		done
+	fi
+done < /tmp/m_player_script_temp.txt
+if [ "$flag" != "1" ];then
+	notify-send "No Subtitle file founded"
+fi
+rm /tmp/m_player_script_temp.txt
+subtitle_encoding=$(file --mime-encoding -b "$file_name_path/$subtitle_file_name")
+if [ "$subtitle_encoding" == "unknown-8bit" ];then
+	subtitle_encoding="WINDOWS-1256"
+fi
+mplayer "$file_name" -subcp "$subtitle_encoding" &
+exit

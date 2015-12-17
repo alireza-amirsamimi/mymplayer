@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo rm -f /usr/bin/mymplayer
+sudo rm -f /usr/share/applications/My\ Mplayer.desktop
