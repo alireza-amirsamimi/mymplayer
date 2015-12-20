@@ -41,6 +41,6 @@ for terminal in $TERMINAL x-terminal-emulator gnome-terminal xfce4-terminal lxte
         break
     fi
 done
-$terminal -e "cat ~/.mymplayer/mplayer.txt|less"
+$terminal --hold -e "cat $HOME/.mymplayer/mplayer.txt|less"
 
 exit
