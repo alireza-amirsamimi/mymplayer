@@ -1,5 +1,5 @@
 #!/bin/bash
-#My Mplayer written by alireza.amirsamimi@gmail.com
+#My Mplayer is written by alireza.amirsamimi@gmail.com
 file_name="$@"
 if [ ! -f "$file_name" ];then
 	file_name=`zenity --file-selection --title="My Mplayer" `
@@ -34,4 +34,13 @@ if [ "$subtitle_encoding" == "unknown-8bit" ];then
 	subtitle_encoding="WINDOWS-1256"
 fi
 mplayer "$file_name" -subcp "$subtitle_encoding" &
+
+#selecting terminal
+for terminal in $TERMINAL x-terminal-emulator gnome-terminal xfce4-terminal lxterminal konsole mate-terminal urxvt rxvt terminator Eterm aterm roxterm termite xterm ; do
+    if command -v $terminal > /dev/null 2>&1; then
+        break
+    fi
+done
+$terminal -e "cat ~/.mymplayer/mplayer.txt|less"
+
 exit
