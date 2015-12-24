@@ -33,14 +33,5 @@ subtitle_encoding=$(file --mime-encoding -b "$file_name_path/$subtitle_file_name
 if [ "$subtitle_encoding" == "unknown-8bit" ];then
 	subtitle_encoding="WINDOWS-1256"
 fi
-mplayer "$file_name" -subcp "$subtitle_encoding" &
-
-#selecting terminal
-for terminal in $TERMINAL x-terminal-emulator gnome-terminal xfce4-terminal lxterminal konsole mate-terminal urxvt rxvt terminator Eterm aterm roxterm termite xterm ; do
-    if command -v $terminal > /dev/null 2>&1; then
-        break
-    fi
-done
-$terminal --hold -e "cat $HOME/.mymplayer/mplayer.txt|less"
-
+mplayer "$file_name" -subcp "$subtitle_encoding" 
 exit

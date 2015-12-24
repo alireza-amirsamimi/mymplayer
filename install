@@ -2,7 +2,5 @@
 install_path=`pwd`
 chmod +x "$install_path/mymplayer"
 chmod +x "$install_path/My Mplayer.desktop"
-sudo mv -f "$install_path/mymplayer" /usr/bin/
-sudo mv -f "$install_path/My Mplayer.desktop" /usr/share/applications/
-mkdir $HOME/.mymplayer
-mv -f "$install_path/mplayer.txt" $HOME/.mymplayer/
+sudo cp -rf "$install_path/mymplayer" /usr/bin/
+sudo cp -rf "$install_path/My Mplayer.desktop" /usr/share/applications/
