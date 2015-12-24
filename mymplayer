@@ -1,5 +1,6 @@
 #!/bin/bash
 #My Mplayer is written by alireza.amirsamimi@gmail.com
+#checking file neme!if file not exist then zenity's file-selection form will open for selecting the file.
 file_name="$@"
 if [ ! -f "$file_name" ];then
 	file_name=`zenity --file-selection --title="My Mplayer" `
@@ -8,6 +9,7 @@ if [ ! -f "$file_name" ];then
            	notify-send "exit"
         fi
 fi
+#finding subtitle file!
 file_name_extension="${file_name##*/}"
 extension="${file_name_extension##*.}"
 file_name_with_out_extension=${file_name_extension%$extension}
@@ -29,9 +31,11 @@ if [ "$flag" != "1" ];then
 	notify-send "No Subtitle file founded"
 fi
 rm /tmp/m_player_script_temp.txt
+#cheking Subtitle's encoding!
 subtitle_encoding=$(file --mime-encoding -b "$file_name_path/$subtitle_file_name")
 if [ "$subtitle_encoding" == "unknown-8bit" ];then
 	subtitle_encoding="WINDOWS-1256"
 fi
-mplayer "$file_name" -subcp "$subtitle_encoding" 
+#set mplayer for subtitle
+mplayer "$file_name" -subcp "$subtitle_encoding"
 exit
