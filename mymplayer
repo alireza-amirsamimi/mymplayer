@@ -7,7 +7,7 @@ if [ ! -f "$file_name" ];then
         if [ $? -eq 1 ]
            then
            	notify-send "exit"
-						exit
+		exit
         fi
 fi
 #finding subtitle file!
